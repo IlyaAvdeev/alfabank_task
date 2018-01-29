@@ -24,9 +24,10 @@ public class Dictionary {
     public String sourceString;
     private final Map<String, List<String>> dictionary = new TreeMap<>();
 
-    public Dictionary(String source) {
+    public Dictionary(String source){
         sourceString = source;
         if (source == null || source.isEmpty()) return;
+        try{
         Arrays.stream(source.trim().split("\\PL+"))
                 .map(String::toLowerCase)
                 .distinct()
@@ -40,22 +41,31 @@ public class Dictionary {
                         dictionary.get(letter).add(s);
                     }
                 });
+        } catch (StringIndexOutOfBoundsException e) {
+            System.err.println("Invalid string. You must type any words.");
+        }
     }
 
     // for quick test
     public static void main(String[] args) {
         Dictionary dictionary;
+        String source;
         if (args.length == 1 && args[0].equalsIgnoreCase(KEY_LAUNCH_CONSOLE)) {
             System.out.println("Enter some words and press enter:");
             Scanner in = new Scanner(System.in);
-            dictionary = new Dictionary(in.nextLine());
+            source = in.nextLine();
         } else {
             System.out.println("This is the demonstration mode...");
-            dictionary = new Dictionary(testString);
+            source = testString;
         }
-        System.out.println("Source test string: " + dictionary.sourceString);
-        System.out.println("Structure of dictionary: " + dictionary.toString());
-        System.out.println("Only sorted groups with several elements: " + dictionary.toStringGroupsWithMultipleElements());
+        try{
+            dictionary = new Dictionary(source);
+            System.out.println("Source test string: " + dictionary.sourceString);
+            System.out.println("Structure of dictionary: " + dictionary.toString());
+            System.out.println("Only sorted groups with several elements: " + dictionary.toStringGroupsWithMultipleElements());
+        } catch (Exception e) {
+            System.err.println("Something wrong. Sorry.");
+        }
     }
 
     /**

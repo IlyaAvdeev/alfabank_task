@@ -1,5 +1,4 @@
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**
@@ -7,10 +6,6 @@ import static org.junit.Assert.*;
  */
 public class DictionaryTest {
     private final static String testString = "   сапог Сарай арбуз    Болт болт Бокс биржа   ";
-
-//    @Test
-//    public void main() throws Exception {
-//    }
 
     @Test
     public void testToString() throws Exception {
@@ -28,5 +23,4 @@ public class DictionaryTest {
         String expectedString = "{б=[биржа, бокс, болт], с=[сапог, сарай]}";
         assertEquals(expectedString, dictionary.toStringGroupsWithMultipleElements());
     }
-
 }
