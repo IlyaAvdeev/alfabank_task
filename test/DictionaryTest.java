@@ -1,4 +1,5 @@
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,5 +23,10 @@ public class DictionaryTest {
         Dictionary dictionary = new Dictionary(testString);
         String expectedString = "{б=[биржа, бокс, болт], с=[сапог, сарай]}";
         assertEquals(expectedString, dictionary.toStringGroupsWithMultipleElements());
+    }
+
+    @Test(expected = StringIndexOutOfBoundsException.class)
+    public void testDictionaryException() {
+        Dictionary dictionary = new Dictionary("() er + - \\\\ || //");
     }
 }

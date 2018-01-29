@@ -27,7 +27,6 @@ public class Dictionary {
     public Dictionary(String source){
         sourceString = source;
         if (source == null || source.isEmpty()) return;
-        try{
         Arrays.stream(source.trim().split("\\PL+"))
                 .map(String::toLowerCase)
                 .distinct()
@@ -41,9 +40,6 @@ public class Dictionary {
                         dictionary.get(letter).add(s);
                     }
                 });
-        } catch (StringIndexOutOfBoundsException e) {
-            System.err.println("Invalid string. You must type any words.");
-        }
     }
 
     // for quick test
@@ -58,11 +54,13 @@ public class Dictionary {
             System.out.println("This is the demonstration mode...");
             source = testString;
         }
-        try{
+        try {
             dictionary = new Dictionary(source);
             System.out.println("Source test string: " + dictionary.sourceString);
             System.out.println("Structure of dictionary: " + dictionary.toString());
             System.out.println("Only sorted groups with several elements: " + dictionary.toStringGroupsWithMultipleElements());
+        } catch (StringIndexOutOfBoundsException e) {
+            System.err.println("Invalid string. You must type any words.");
         } catch (Exception e) {
             System.err.println("Something wrong. Sorry.");
         }
